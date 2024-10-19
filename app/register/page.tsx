@@ -59,10 +59,10 @@ export default function PricingPage() {
       }
 
       // Tampilkan notifikasi sukses
-      window.alert('Akun berhasil dibuat');
+      window.alert("Akun berhasil dibuat");
 
       // Redirect ke halaman login
-      router.push('/login');
+      router.push("/login");
       
     } catch (error) {
       console.error(error); // Log error untuk debugging
