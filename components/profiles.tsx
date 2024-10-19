@@ -33,46 +33,47 @@ export default function Profiles() {
 
   const profiles = [
     {
+      id: 1,
       name: "Fayyadh Asady",
       nim: "1101220353",
       role: "Frontend Developer",
       github: "https://github.com/Asady04",
-      instagram:
-        "https://www.instagram.com/asady_fyd/profilecard/?igsh=MTNiNHM0bDZwdGgyZQ==",
+      instagram: "https://www.instagram.com/asady_fyd/profilecard/?igsh=MTNiNHM0bDZwdGgyZQ==",
       image: "/fayyadh.jpg",
     },
     {
+      id: 2,
       name: "Ad Dhiya Fahma Bilnadzary Nugraha",
       nim: "1101220264",
       role: "Backend Developer",
       github: "https://github.com/Addhiya",
-      instagram:
-        "https://www.instagram.com/addhiii.f/profilecard/?igsh=OW80cW83MHQzdWkw",
+      instagram: "https://www.instagram.com/addhiii.f/profilecard/?igsh=OW80cW83MHQzdWkw",
       image: "/adhiya.jpg",
     },
     {
+      id: 3,
       name: "Made Satya Yudha Prawira",
       nim: "1101223369",
       role: "Devops Developer",
       github: "https://github.com/styydh",
-      instagram:
-        "https://www.instagram.com/plcg.kangkung/profilecard/?igsh=MTloMHB4M282OWd3dg==",
+      instagram: "https://www.instagram.com/plcg.kangkung/profilecard/?igsh=MTloMHB4M282OWd3dg==",
       image: "/yudha.jpg",
     },
     {
+      id: 4,
       name: "Muhammad Ridzwan Aulia Azzikra",
       nim: "1101223064",
       role: "AI Developer",
       github: "https://github.com/Emraaaa",
-      instagram:
-        "https://www.instagram.com/rdzwan_aa/profilecard/?igsh=anFtNXlveWxjamN2",
+      instagram: "https://www.instagram.com/rdzwan_aa/profilecard/?igsh=anFtNXlveWxjamN2",
       image: "/ridzwan.jpg",
     },
   ];
+  
   return (
     <div className="w-full flex md:flex-row flex-col gap-3">
       {profiles.map((profile) => (
-        <Card className="py-4 hover:-translate-y-1 duration-100">
+        <Card key={profile.id} className="py-4 hover:-translate-y-1 duration-100">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
             <Image
               alt="Card background"
