@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { fontSans } from "@/config/fonts";
-
+import React from 'react';
 export default function LoginLayout({
   children,
 }: {

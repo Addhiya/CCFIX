@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import Profiles from "@/components/profiles";
 
 export default function AboutPage() {
