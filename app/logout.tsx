@@ -1,32 +1,24 @@
-// middleware.ts
-// middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { useRouter } from 'next/router';
+import React, { useEffect } from "react";
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get('authToken'); // Ganti sesuai dengan cara Anda menyimpan token autentikasi
+const Logout = () => {
+  const router = useRouter();
 
-  // Log untuk memeriksa apakah middleware dipanggil
-  console.log('Middleware triggered:', request.nextUrl.pathname);
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Hapus token dari localStorage
+    router.push('/login'); // Redirect ke halaman login
+  };
 
-  // Cek apakah token ada
-  if (!token) {
-    const { pathname } = request.nextUrl;
+  // Panggil handleLogout saat komponen ini dirender
+  useEffect(() => {
+    handleLogout();
+  }, []);
 
-    // Biarkan akses ke halaman login dan halaman about
-    if (pathname !== '/login' && pathname !== '/about') {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-  }
-
-  // Jika token ada, biarkan pengguna mengakses halaman
-  return NextResponse.next();
-}
-
-
-// Tentukan paths yang ingin dilindungi
-export const config = {
-  matcher: [
-    '/((?!api|login|about|_next).*)', // Kecualikan API, halaman login, halaman about, dan static assets dari middleware
-  ],
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p>Logging out...</p>
+    </div>
+  );
 };
+
+export default Logout;

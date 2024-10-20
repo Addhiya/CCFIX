@@ -36,6 +36,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation"; // Import useRouter
 
@@ -206,27 +207,39 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {searchInput}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-      </NavbarMenu>
+      {searchInput}
+      <div className="mx-4 mt-2 flex flex-col gap-2">
+        {siteConfig.navMenuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              color={
+                index === 2
+                  ? "primary"
+                  : index === siteConfig.navMenuItems.length - 1
+                  ? "danger"
+                  : "foreground"
+              }
+              href={item.href}
+              size="lg"
+            >
+              {item.label}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+        {/* Tambahkan elemen Logout di bagian bawah */}
+        <NavbarMenuItem>
+          <button
+            className="text-danger flex gap-1 items-center mt-1" // Styling button
+            onClick={handleLogout} // Event handler untuk logout
+          >
+            <p>Log Out</p>
+            <FontAwesomeIcon icon={faDoorOpen} />
+          </button>
+        </NavbarMenuItem>
+      </div>
+    </NavbarMenu>
+
+
     </NextUINavbar>
   );
 };

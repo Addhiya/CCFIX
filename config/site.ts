@@ -58,10 +58,6 @@ export const siteConfig = {
     //   label: "Help & Feedback",
     //   href: "/help-feedback",
     // },
-    {
-      label: "Logout",
-      href: "/logout",
-    },
   ],
   links: {
     github: "https://github.com/Asady04/cloud-computing",
