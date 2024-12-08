@@ -99,6 +99,7 @@ export default function LoginPage() {
               variant="shadow" 
               className="bg-gradient-to-r from-red-800 to-red-600 text-white font-semibold" 
               onClick={handleLogin} // Panggil handleLogin saat tombol diklik
+              onTouchStart={handleLogin}
               disabled={loading} // Nonaktifkan tombol saat loading
             >
               {loading ? 'Loading...' : 'Login'}

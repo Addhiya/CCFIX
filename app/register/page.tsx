@@ -136,6 +136,7 @@ export default function PricingPage() {
               variant="shadow"
               className="bg-gradient-to-r from-red-800 to-red-600 text-white font-semibold"
               onClick={handleRegister}
+              onTouchStart={handleRegister}
               disabled={loading}
             >
               {loading ? 'Registering...' : 'Register'}

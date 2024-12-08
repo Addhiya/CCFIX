@@ -224,6 +224,7 @@ export const Navbar = () => {
                   className="text-danger"
                   color="danger"
                   onClick={handleLogout} // Tambahkan event handler untuk logout
+                  onTouchStart={handleLogout}
                 >
                   <div className="flex gap-1 items-center">
                     <p>Log Out</p>
