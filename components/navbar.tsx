@@ -36,7 +36,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation"; // Import useRouter
 
@@ -52,26 +52,26 @@ export const Navbar = () => {
   // State untuk menyimpan data pengguna
   const [userData, setUserData] = useState<UserData | null>(null); // Definisikan tipe
 
-
   // Ambil data pengguna dari API
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://cc-be-beta.vercel.app/api/user', {
+        const response = await fetch("https://cc-be-beta.vercel.app/api/user", {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Pastikan menambahkan token di sini
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Pastikan menambahkan token di sini
           },
         });
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         const data = await response.json();
-        console.log('Fetched user data:', data); // Cek data yang diterima
+        console.log("Fetched user data:", data); // Cek data yang diterima
         setUserData(data); // Simpan data pengguna ke state
+        localStorage.setItem('role', data.role); // Simpan data pengguna ke state
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
@@ -79,8 +79,8 @@ export const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken'); // Hapus token dari localStorage
-    router.push('/login'); // Redirect ke halaman login
+    localStorage.removeItem("authToken"); // Hapus token dari localStorage
+    router.push("/login"); // Redirect ke halaman login
   };
 
   const searchInput = (
@@ -121,20 +121,47 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
+          {userData ? ( // Tampilkan nama jika data ada
+            <>
+              {userData.role == "ADMIN" ? (
+                <>
+                  {siteConfig.navItemsAdmin.map((item) => (
+                    <NavbarItem key={item.href}>
+                      <NextLink
+                        className={clsx(
+                          linkStyles({ color: "foreground" }),
+                          "data-[active=true]:text-primary data-[active=true]:font-medium"
+                        )}
+                        color="foreground"
+                        href={item.href}
+                      >
+                        {item.label}
+                      </NextLink>
+                    </NavbarItem>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {siteConfig.navItems.map((item) => (
+                    <NavbarItem key={item.href}>
+                      <NextLink
+                        className={clsx(
+                          linkStyles({ color: "foreground" }),
+                          "data-[active=true]:text-primary data-[active=true]:font-medium"
+                        )}
+                        color="foreground"
+                        href={item.href}
+                      >
+                        {item.label}
+                      </NextLink>
+                    </NavbarItem>
+                  ))}
+                </>
+              )}
+            </>
+          ) : (
+            "" // Tampilkan default jika belum ada data
+          )}
         </ul>
       </NavbarContent>
 
@@ -170,7 +197,18 @@ export const Navbar = () => {
                       <>
                         <p className="font-semibold">{userData.name}</p>
                         <p className="text-sm">{userData.email}</p>
-                        {userData.role == 'ADMIN' ? (<p className="text-sm font-semibold text-red-800">{userData.role}</p>) : (<div><p className="text-sm">{userData.nim}</p><p className="text-sm font-semibold text-green-800">{userData.role}</p></div>)}
+                        {userData.role == "ADMIN" ? (
+                          <p className="text-sm font-semibold text-red-800">
+                            {userData.role}
+                          </p>
+                        ) : (
+                          <div>
+                            <p className="text-sm">{userData.nim}</p>
+                            <p className="text-sm font-semibold text-green-800">
+                              {userData.role}
+                            </p>
+                          </div>
+                        )}
                       </>
                     ) : (
                       <>
@@ -207,39 +245,37 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-      {searchInput}
-      <div className="mx-4 mt-2 flex flex-col gap-2">
-        {siteConfig.navMenuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === siteConfig.navMenuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href={item.href}
-              size="lg"
+        {searchInput}
+        <div className="mx-4 mt-2 flex flex-col gap-2">
+          {siteConfig.navMenuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                color={
+                  index === 2
+                    ? "primary"
+                    : index === siteConfig.navMenuItems.length - 1
+                      ? "danger"
+                      : "foreground"
+                }
+                href={item.href}
+                size="lg"
+              >
+                {item.label}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+          {/* Tambahkan elemen Logout di bagian bawah */}
+          <NavbarMenuItem>
+            <button
+              className="text-danger flex gap-1 items-center mt-1" // Styling button
+              onClick={handleLogout} // Event handler untuk logout
             >
-              {item.label}
-            </Link>
+              <p>Log Out</p>
+              <FontAwesomeIcon icon={faDoorOpen} />
+            </button>
           </NavbarMenuItem>
-        ))}
-        {/* Tambahkan elemen Logout di bagian bawah */}
-        <NavbarMenuItem>
-          <button
-            className="text-danger flex gap-1 items-center mt-1" // Styling button
-            onClick={handleLogout} // Event handler untuk logout
-          >
-            <p>Log Out</p>
-            <FontAwesomeIcon icon={faDoorOpen} />
-          </button>
-        </NavbarMenuItem>
-      </div>
-    </NavbarMenu>
-
-
+        </div>
+      </NavbarMenu>
     </NextUINavbar>
   );
 };

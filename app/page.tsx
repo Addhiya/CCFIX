@@ -23,36 +23,16 @@ export default function HomePage() {
   // }, [router]);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Buat&nbsp;</span>
-        <span className={title({ color: "green" })}>Disini&nbsp;</span>
-        <br />
-        <span className={title()}>
-          Untuk
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Homepage/Dashboard
-        </div>
-      </div>
-
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
-
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
-    </section>
+    <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <iframe
+      src="https://prediksi-stunting.streamlit.app/?embed=true"
+      style={{
+        width: '100%',
+        height: '100%',
+        border: 'none',
+      }}
+      title="Streamlit Dashboard"
+    ></iframe>
+  </div>
   );
 }
