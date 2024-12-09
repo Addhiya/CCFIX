@@ -102,7 +102,7 @@ export const siteConfig = {
     
   ],
   links: {
-    github: "https://github.com/Asady04/cloud-computing",
+    github: "https://github.com/Addhiya/CCFIX",
     twitter: "https://twitter.com/getnextui",
     docs: "https://nextui.org",
     discord: "https://discord.gg/9b6yyZKmH4",
