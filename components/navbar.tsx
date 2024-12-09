@@ -153,10 +153,8 @@ export const Navbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem className="hidden md:flex">
           <div className="flex justify-between gap-3 items-center">
-            <div className="items-center text-default-700 text-right">
+            <div className="hidden md:block items-center text-default-700 text-right">
               {userData ? ( // Tampilkan nama jika data ada
                 <>
                   <p className="font-semibold">Hey, {userData.name}</p>
@@ -221,6 +219,53 @@ export const Navbar = () => {
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
+        <Dropdown>
+          <DropdownTrigger>
+            <Avatar size="md" src="/user-avatar-happy.svg" />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Static Actions">
+            <DropdownItem key="new">
+              <div>
+                {userData ? ( // Tampilkan informasi pengguna jika data ada
+                  <>
+                    <p className="font-semibold">{userData.name}</p>
+                    <p className="text-sm">{userData.email}</p>
+                    {userData.role == "ADMIN" ? (
+                      <p className="text-sm font-semibold text-red-800">
+                        {userData.role}
+                      </p>
+                    ) : (
+                      <div>
+                        <p className="text-sm">{userData.nim}</p>
+                        <p className="text-sm font-semibold text-green-800">
+                          {userData.role}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <p className="font-semibold">User</p>
+                    <p className="text-sm">user@example.com</p>
+                    <p className="text-sm">NIM</p>
+                  </>
+                )}
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              key="logout"
+              className="text-danger"
+              color="danger"
+              onClick={handleLogout} // Tambahkan event handler untuk logout
+              onTouchStart={handleLogout}
+            >
+              <div className="flex gap-1 items-center">
+                <p>Log Out</p>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} />
+              </div>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
         <NavbarMenuToggle />
       </NavbarContent>
 
