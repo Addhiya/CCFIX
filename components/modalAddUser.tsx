@@ -76,6 +76,7 @@ export default function ModalAddUser({ fetchUserData }: ModalAddUserProps) {
       setNim('');
       setPassword('');
       setRole('');
+  
     } catch (error) {
       console.error(error);
       const errorMessage =
@@ -174,8 +175,9 @@ export default function ModalAddUser({ fetchUserData }: ModalAddUserProps) {
                 <Button
                   variant="shadow"
                   className="bg-gradient-to-r from-red-800 to-red-600 text-white font-semibold"
-                  onClick={handleRegister}
-                  onPress={onClose}
+                  onClick={onClose}
+                  onTouchStart={handleRegister}
+                  onPress={handleRegister}
                   disabled={loading}
                 >
                   {loading ? "Registering..." : "Register"}

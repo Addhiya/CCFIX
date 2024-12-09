@@ -52,10 +52,10 @@ export const siteConfig = {
     },
   ],
   navMenuItems: [
-    {
-      label: "Profile",
-      href: "/profile",
-    },
+    // {
+    //   label: "Profile",
+    //   href: "/profile",
+    // },
     {
       label: "Dashboard",
       href: "/",
@@ -84,6 +84,22 @@ export const siteConfig = {
     //   label: "Help & Feedback",
     //   href: "/help-feedback",
     // },
+  ],
+  navMenuItemsAdmin: [
+    
+    {
+      label: "Dashboard",
+      href: "/",
+    },
+    {
+      label: "About",
+      href: "/about",
+    },
+    {
+      label: "Users",
+      href: "/users",
+    },
+    
   ],
   links: {
     github: "https://github.com/Asady04/cloud-computing",

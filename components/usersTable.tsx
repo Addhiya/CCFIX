@@ -18,6 +18,7 @@ import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { SearchIcon } from "@/components/icons";
 import React, { Key, useEffect, useState } from "react";
 import ModalAddUser from "./modalAddUser";
+import ModalDeleteUser from "./modaDeleteUser";
 
 const columns = [
   {
@@ -40,12 +41,6 @@ const columns = [
     key: "action",
     label: "Action",
   },
-];
-
-const roles = [
-  { label: "All", value: "all" },
-  { label: "Admin", value: "admin" },
-  { label: "User", value: "user" },
 ];
 
 export default function UsersTable() {
@@ -83,12 +78,7 @@ export default function UsersTable() {
   useEffect(() => {
     fetchUsersData();
   }, []);
-  const [value, setValue] = React.useState<string>("all");
-  const handleSelectionChange = (key: Key | null) => {
-    if (key !== null) {
-      setValue(key.toString()); // Pastikan tipe string
-    }
-  };
+
   const deleteUserdata = async (id: number) => {
     try {
       const response = await fetch(
@@ -114,24 +104,8 @@ export default function UsersTable() {
   };
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between mb-3 items-center">
-        <Autocomplete
-          defaultInputValue="All"
-          label="Filter Role"
-          className="max-w-xs"
-          size="sm"
-          defaultItems={roles}
-          selectedKey={value}
-          onSelectionChange={handleSelectionChange}
-        >
-          {roles.map((role) => (
-            <AutocompleteItem key={role.value} value={role.value}>
-              {role.label}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-
-        <ModalAddUser fetchUserData={fetchUsersData}/>
+      <div className="w-full flex justify-end mb-3 items-center">
+        <ModalAddUser fetchUserData={fetchUsersData} />
       </div>
 
       {/* table */}
@@ -149,14 +123,7 @@ export default function UsersTable() {
               <TableCell>{item.nim}</TableCell>
               <TableCell>{item.email}</TableCell>
               <TableCell>
-                <Button
-                  isIconOnly
-                  color="danger"
-                  className="dark:text-default-50"
-                  onPress={() => deleteUserdata(item.id)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </Button>
+                <ModalDeleteUser deleteUserData={deleteUserdata} id={item.id}/>
               </TableCell>
             </TableRow>
           )}

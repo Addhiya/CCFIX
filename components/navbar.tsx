@@ -69,7 +69,7 @@ export const Navbar = () => {
         const data = await response.json();
         console.log("Fetched user data:", data); // Cek data yang diterima
         setUserData(data); // Simpan data pengguna ke state
-        localStorage.setItem('role', data.role); // Simpan data pengguna ke state
+        localStorage.setItem("role", data.role); // Simpan data pengguna ke state
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -248,23 +248,34 @@ export const Navbar = () => {
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
+          {userData ? ( // Tampilkan nama jika data ada
+            <>
+              {userData.role == "ADMIN" ? (
+                <>
+                  {siteConfig.navMenuItemsAdmin.map((item, index) => (
+                    <NavbarMenuItem key={`${item}-${index}`}>
+                      <Link color="foreground" href={item.href} size="lg">
+                        {item.label}
+                      </Link>
+                    </NavbarMenuItem>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {siteConfig.navMenuItems.map((item, index) => (
+                    <NavbarMenuItem key={`${item}-${index}`}>
+                      <Link color="foreground" href={item.href} size="lg">
+                        {item.label}
+                      </Link>
+                    </NavbarMenuItem>
+                  ))}
+                </>
+              )}
+            </>
+          ) : (
+            "" // Tampilkan default jika belum ada data
+          )}
+
           {/* Tambahkan elemen Logout di bagian bawah */}
           <NavbarMenuItem>
             <button
